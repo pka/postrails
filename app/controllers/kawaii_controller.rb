@@ -1,10 +1,10 @@
 class KawaiiController < ApplicationController
-  include KawaiiAuthentication
+  #include KawaiiAuthentication
 
   protect_from_forgery
   
   # Note you can replace this with your own authentication easily  
-  before_filter :replaceable_authentication, :except => :login
+  #before_filter :replaceable_authentication, :except => :login
   
   verify :method => :post, :only => [:delete_snippet, :save_query, :query]
   
