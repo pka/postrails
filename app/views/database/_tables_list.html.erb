@@ -1,5 +1,5 @@
 <ul id="tables">
   <% for table in @tables -%>
-    <li><%= link_to table, {:action => table} %></li>
+    <li><%= link_to table, {:controller => "tables", :action => "index", :table => table} %></li>
   <% end -%>
 </ul>
