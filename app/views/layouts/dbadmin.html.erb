@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Database Administration</title>
+    <%= javascript_include_tag :defaults %>
+    <%= active_scaffold_includes %>
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body>
+
+    <div id="banner" >
+      <h1>PostRails</h1>
+    </div>
+
+    <div id="mainnavi" >
+      <ul>
+        <li><a href="#" class="selected">Database</a></li>
+        <li>| <a href="#">Applications</a></li>
+      </ul>
+    </div>
+
+    <div id="left">
+      <h2>Menu</h2>
+      <ul>
+        <li>...</li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <%= yield %>
+    </div>
+
+    <div id="footer">
+      Pirmin Kalberer, #breakpoint
+    </div>
+
+  </body>
+</html>
