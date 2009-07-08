@@ -1,0 +1,8 @@
+nbproject
+log/*.log
+tmp/**/*
+db/schema.rb
+public/blank.html
+public/images/active_scaffold/
+public/javascripts/active_scaffold/
+public/stylesheets/active_scaffold/
