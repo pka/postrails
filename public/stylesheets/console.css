@@ -41,10 +41,6 @@ h1.loading {
 
 
 body.kawaii {
-  background-image: url(kawaii.png);
-  background-repeat: no-repeat;
-  background-color: #fff;
-  background-position: 8px 0px;
 }
 
 #kawaii_content {

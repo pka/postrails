@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :database, :active_scaffold => true
   map.resources :posts, :active_scaffold => true
 
   # The priority is based upon order of creation: first created -> highest priority.

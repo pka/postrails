@@ -1,4 +1,4 @@
 class PostsController < ApplicationController
-  active_scaffold :post
-  layout "dbadmin"
+  active_scaffold
+  layout "active_scaffold"
 end

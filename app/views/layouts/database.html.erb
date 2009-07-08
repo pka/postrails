@@ -37,10 +37,17 @@
     </div>
 
     <div id="left">
-      <h2>Menu</h2>
-      <ul>
-        <li>...</li>
-      </ul>
+      <%= select("database", "name",
+        Database.all.collect(&:datname),
+        { :include_blank => "-- Database --" }) %>
+      <%= select("db_schema", "name",
+        DbSchema.all.collect(&:nspname),
+        { :include_blank => "-- Schema --" }) %>
+      <%= observe_field 'database_name', :update => 'tables',
+        :url => {:action => 'refresh_tables'},
+        :with => "'database_name=' + encodeURIComponent(value)" %>
+      <div id="tables">
+      </div>
     </div>
 
     <div id="content">
