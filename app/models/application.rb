@@ -17,7 +17,7 @@ class Application < ActiveRecord::Base
 
   def create_railsapp
     destroy_railsapp
-    system("rails #{railsapp_path}")
+    system("rails --template=#{APP_TEMPLATE} #{railsapp_path}")
   end
 
   def destroy_railsapp
