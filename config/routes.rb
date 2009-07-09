@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :applications
+
+  map.resources :applications
   map.resources :database, :member => { :refresh_tables => :post }, :active_scaffold => true
   map.resources :tables, :active_scaffold => true
   map.resources :posts, :active_scaffold => true

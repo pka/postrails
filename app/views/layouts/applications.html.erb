@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Applications: <%= controller.action_name %></title>
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body>
+
+    <div id="banner" >
+      <h1>PostRails</h1>
+    </div>
+
+    <div id="mainnavi" >
+      <ul>
+        <li><%= link_to "Database", tables_path %></li>
+        <li>| <%= link_to "Applications", applications_path %></li>
+      </ul>
+    </div>
+
+    <div id="left">
+      <ul>
+        <li><%= link_to "Applications", applications_path %></li>
+        <li><%= link_to "Status", '#' %></li>
+        <li><%= link_to "Logs", '#' %></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <p style="color: green"><%= flash[:notice] %></p>
+
+      <%= yield %>
+
+    </div>
+
+    <div id="footer">
+      Pirmin Kalberer, #breakpoint
+    </div>
+
+  </body>
+</html>
