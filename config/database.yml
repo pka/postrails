@@ -45,7 +45,8 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: postrails_production
+  #database: postrails_production
+  database: postrails_development
   pool: 5
-  username: postrails
-  password:
+  #username: postrails
+  #password:
