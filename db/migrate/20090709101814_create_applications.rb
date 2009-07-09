@@ -2,8 +2,7 @@ class CreateApplications < ActiveRecord::Migration
   def self.up
     create_table :applications do |t|
       t.string :name
-
-      t.timestamps
+      t.integer :port
     end
   end
 
