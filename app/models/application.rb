@@ -31,4 +31,14 @@ class Application < ActiveRecord::Base
   def stop
     system("cat #{railsapp_path}/tmp/pids/server.pid | xargs kill")
   end
+
+  def status
+    pslines = `ps -p \`cat #{railsapp_path}/tmp/pids/server.pid\` | wc -l`
+    pslines == "2\n" ? 'running' : 'stopped'
+  end
+
+  def running?
+    status == 'running'
+  end
+
 end
