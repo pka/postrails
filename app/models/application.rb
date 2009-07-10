@@ -17,7 +17,7 @@ class Application < ActiveRecord::Base
 
   def create_railsapp
     destroy_railsapp
-    system("rails --template=#{APP_TEMPLATE} #{railsapp_path}")
+    Shell.run("rails --template=#{APP_TEMPLATE} #{railsapp_path}")
   end
 
   def destroy_railsapp
@@ -25,15 +25,15 @@ class Application < ActiveRecord::Base
   end
 
   def start
-    system("cd #{railsapp_path} && ./script/server start --daemon -p #{port}")
+    Shell.run("cd #{railsapp_path} && ./script/server start --daemon -p #{port}")
   end
 
   def stop
-    system("cat #{railsapp_path}/tmp/pids/server.pid | xargs kill")
+    Shell.run("cat #{railsapp_path}/tmp/pids/server.pid | xargs kill")
   end
 
   def status
-    pslines = `ps -p \`cat #{railsapp_path}/tmp/pids/server.pid\` | wc -l`
+    status, pslines = Shell.run("ps -p `cat #{railsapp_path}/tmp/pids/server.pid` | wc -l")
     pslines == "2\n" ? 'running' : 'stopped'
   end
 
