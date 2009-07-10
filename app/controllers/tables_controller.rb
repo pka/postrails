@@ -1,5 +1,5 @@
 class TablesController < ApplicationController
-  active_scaffold :application #Warning: called each time in DEV env.
+  active_scaffold :application #Create actions. Note: called each time in DEV env.
   layout "databases"
 
   before_filter :refresh_scaffold
@@ -7,18 +7,17 @@ class TablesController < ApplicationController
   protected
 
   def refresh_scaffold
-    #session[:table] ||= params[:table]
-    #@table = session[:table]
-    @table = params[:table]
-    if @table
+    session[:table] = params[:table] if params[:table]
+    unless @table
+      @table = session[:table]
       logger.debug "refresh_scaffold to #{@table}"
-      params[:table] = nil
-      Table.change_table(@table)
-      self.class.instance_eval {
-        active_scaffold(:table)
-      }
+      table_name = Table.new.connect_table(@table).name
+      self.class.instance_eval <<EOS
+        active_scaffold('#{table_name}') do |config|
+          config.label = '#{@table}'
+        end
+EOS
       handle_user_settings
-      active_scaffold_config.label = @table
     end
   end
 
