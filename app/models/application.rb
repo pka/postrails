@@ -7,6 +7,8 @@ class Application < ActiveRecord::Base
   before_create :create_railsapp
   before_destroy :destroy_railsapp
 
+  attr_accessor :tables
+
   def railsapp_path
     "#{DEPLOY_ROOT}/#{name}"
   end
@@ -17,10 +19,12 @@ class Application < ActiveRecord::Base
 
   def create_railsapp
     destroy_railsapp
-    Shell.run("rails --template=#{APP_TEMPLATE} #{railsapp_path}")
+    table_list = (tables || []).join(',')
+    Shell.run("TABLES=#{table_list} PARENT_ROOT=#{RAILS_ROOT} rails --template=#{APP_TEMPLATE} #{railsapp_path}")
   end
 
   def destroy_railsapp
+    stop if running?
     rm_rf railsapp_path
   end
 

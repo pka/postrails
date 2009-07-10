@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
   active_scaffold do |config|
     config.list.columns << :status
+    config.create.columns << :tables
     config.actions = [:list, :create, :update, :delete]
     config.action_links.add 'start', :label => 'Start', :type => :record, :position => :after
     config.action_links.add 'stop', :label => 'Stop', :type => :record, :position => :after
