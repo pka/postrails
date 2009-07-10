@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :applications, :active_scaffold => true
-  map.resources :database, :collection => { :logout => :get, :refresh_tables => :post }, :active_scaffold => true
+  map.resources :databases, :collection => { :refresh_tables => :post }, :active_scaffold => true
   map.resources :tables, :member => { :refresh_tables => :post }, :active_scaffold => true
   map.resources :users, :active_scaffold => true
 

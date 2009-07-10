@@ -1,6 +1,6 @@
 class TablesController < ApplicationController
   active_scaffold :application #Warning: called each time in DEV env.
-  layout "database"
+  layout "databases"
 
   before_filter :refresh_scaffold
 

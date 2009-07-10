@@ -45,7 +45,7 @@
         DbSchema.all.collect(&:nspname),
         { :include_blank => "-- Schema --" }) %>
       <%= observe_field 'database_name', :update => 'tables',
-        :url => {:controller => 'database', :action => 'refresh_tables'},
+        :url => {:controller => 'databases', :action => 'refresh_tables'},
         :with => "'database_name=' + encodeURIComponent(value)" %>
       <div id="tables">
       </div>
