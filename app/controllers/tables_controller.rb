@@ -2,22 +2,9 @@ class TablesController < ApplicationController
   active_scaffold :application #Warning: called each time in DEV env.
   layout "database"
 
-  before_filter :authenticate
   before_filter :refresh_scaffold
 
   protected
-
-  def authenticate
-    authenticate_or_request_with_http_basic do |username, password|
-      config = ActiveRecord::Base.connection.instance_eval { @config }
-      if username != config[:user] || !Application.connected?
-        logger.debug "Connect as user: #{username}"
-        Application.establish_connection(config.merge(:username => username, :password => password))
-        Application.connection.execute("SELECT now()") rescue nil #force connection
-      end
-      Application.connected?
-    end
-  end
 
   def refresh_scaffold
     #session[:table] ||= params[:table]
