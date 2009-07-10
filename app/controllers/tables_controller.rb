@@ -1,5 +1,5 @@
 class TablesController < ApplicationController
-  active_scaffold #Warning: called each time in DEV env.
+  active_scaffold :application #Warning: called each time in DEV env.
   layout "database"
 
   before_filter :authenticate
@@ -10,12 +10,12 @@ class TablesController < ApplicationController
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
       config = ActiveRecord::Base.connection.instance_eval { @config }
-      if username != config[:user] || !Post.connected?
+      if username != config[:user] || !Application.connected?
         logger.debug "Connect as user: #{username}"
-        Post.establish_connection(config.merge(:username => username, :password => password))
-        Post.connection.execute("SELECT now()") rescue nil #force connection
+        Application.establish_connection(config.merge(:username => username, :password => password))
+        Application.connection.execute("SELECT now()") rescue nil #force connection
       end
-      Post.connected?
+      Application.connected?
     end
   end
 

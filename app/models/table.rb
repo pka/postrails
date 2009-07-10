@@ -1,5 +1,5 @@
 class Table < ActiveRecord::Base
-  set_table_name "posts"
+  set_table_name "applications"
 
   def self.change_table(name)
 #    @ar_class ||= Class.new(ActiveRecord::Base) do
