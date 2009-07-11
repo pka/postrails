@@ -12,8 +12,6 @@ class Database < ActiveRecord::Base
     db_connection.tables
   end
 
-  private
-
   #Each database record has it's own AR class with a connection
   def ar_class
     @ar_class ||= DatabaseObject.module_eval <<EOS
@@ -32,6 +30,8 @@ class Database < ActiveRecord::Base
       end
 EOS
   end
+
+  private
 
   def ar_class_name
     "Db_#{datname}"
