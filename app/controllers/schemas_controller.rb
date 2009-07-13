@@ -4,4 +4,13 @@ class SchemasController < ApplicationController
     config.actions = [:list]
   end
   layout "databases"
+
+  before_filter :get_database
+
+  protected
+
+  def get_database
+    @database = Database.find_by_datname(params[:database_id])
+  end
+
 end
