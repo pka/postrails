@@ -1,5 +1,5 @@
-class DbSchemasController < ApplicationController
-  active_scaffold do |config|
+class SchemasController < ApplicationController
+  active_scaffold :db_schema do |config|
     config.list.columns = [:nspname, :owner, :nspacl]
     config.actions = [:list]
   end
