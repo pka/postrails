@@ -1,0 +1,11 @@
+<% if @database -%>
+  <%= select("db_schema", "name",
+    @database.schemas.collect(&:nspname),
+    { :include_blank => "-- Schema --" }) %>
+  <%= observe_field 'db_schema_name', :update => 'tables',
+    :url => {:controller => 'databases', :action => 'refresh_tables'},
+    :with => "'database_name=#{@database.name}&schema_name=' + encodeURIComponent(value)" %>
+  <div id="tables">
+    <% render :partial => '/databases/tables_list' %>
+  </div>
+<% end -%>

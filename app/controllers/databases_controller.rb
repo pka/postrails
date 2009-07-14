@@ -5,8 +5,13 @@ class DatabasesController < ApplicationController
     config.actions = [:list]
   end
 
+  def schema_select
+    @database = Database.find_by_name(params[:database_name])
+    render :partial => 'schema_select'
+  end
+
   def refresh_tables
-    @database = Database.find_by_datname(params[:database_name])
+    @database = Database.find_by_name(params[:database_name])
     @tables = @database.tables
     render :partial => 'tables_list'
   end

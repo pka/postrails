@@ -38,16 +38,14 @@
     </div>
 
     <div id="left">
-      <%= select("database", "datname",
-        Database.all.collect(&:datname),
+      <%= select("database", "name",
+        Database.all.collect(&:name),
         { :include_blank => "-- Database --" }) %>
-      <%= select("db_schema", "name",
-        DbSchema.all.collect(&:nspname),
-        { :include_blank => "-- Schema --" }) %>
-      <%= observe_field 'database_datname', :update => 'tables',
-        :url => {:controller => 'databases', :action => 'refresh_tables'},
+      <%= observe_field 'database_name', :update => 'schema_select',
+        :url => {:controller => 'databases', :action => 'schema_select'},
         :with => "'database_name=' + encodeURIComponent(value)" %>
-      <div id="tables">
+      <div id="schema_select">
+        <% render :partial => '/databases/schema_select' %>
       </div>
     </div>
 

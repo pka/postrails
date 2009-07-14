@@ -10,7 +10,7 @@ class TablesController < ApplicationController
     session[:database] = params[:database] if params[:database]
     session[:table] = params[:table] if params[:table]
     unless @table
-      @database = Database.find_by_datname(session[:database])
+      @database = Database.find_by_name(session[:database])
       @table = session[:table]
       logger.debug "refresh_scaffold to #{@table}"
       table_class = Table.new.connect_table(@database, @table)

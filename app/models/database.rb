@@ -6,6 +6,19 @@ class Database < ActiveRecord::Base
 
   default_scope :order => 'datname'
 
+  def self.find_by_name(db_name)
+    find_by_datname(db_name)
+  end
+
+  def name
+    datname
+  end
+
+  def schemas
+    schema = DbSchema.new(:database => self)
+    schema.ar_class.all
+  end
+
   def db_connection
     ar_class.connection
   end
@@ -17,14 +30,12 @@ class Database < ActiveRecord::Base
 
   #Each database record has it's own AR class with a connection
   def ar_class
-    @ar_class ||= DatabaseObject.module_eval <<EOS
+    @ar_class ||= Database.module_eval <<EOS
       class #{ar_class_name} < ActiveRecord::Base
-        set_table_name "pg_database"
-        set_primary_key "datdba"
 
         def self.db_config
           config = ActiveRecord::Base.connection.instance_eval { @config }
-          config.merge('database' => '#{datname}', :pool => 1)
+          config.merge('database' => '#{name}', :pool => 1)
         end
 
         establish_connection(db_config)
@@ -34,14 +45,8 @@ class Database < ActiveRecord::Base
 EOS
   end
 
-  private
-
   def ar_class_name
-    "Db_#{datname}"
+    "Dbconn_#{name}"
   end
 
-end
-
-#Namespace for dynamic database classes
-module DatabaseObject
 end
