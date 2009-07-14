@@ -30,20 +30,26 @@ class Database < ActiveRecord::Base
 
   #Each database record has it's own AR class with a connection
   def ar_class
-    @ar_class ||= Database.module_eval <<EOS
-      class #{ar_class_name} < ActiveRecord::Base
+    if Database.const_defined?(ar_class_name)
+      "Database::#{ar_class_name}".constantize
+    else
+      Database.module_eval <<EOS
+        class #{ar_class_name} < ActiveRecord::Base
 
-        def self.db_config
-          config = ActiveRecord::Base.connection.instance_eval { @config }
-          config.merge('database' => '#{name}', :pool => 1)
+          def self.db_config
+            config = ActiveRecord::Base.connection.instance_eval { @config }
+            config.merge('database' => '#{name}', :pool => 1)
+          end
+
+          establish_connection(db_config)
+
+          self
         end
-
-        establish_connection(db_config)
-
-        self
-      end
 EOS
+    end
   end
+
+  private
 
   def ar_class_name
     "Dbconn_#{name}"
