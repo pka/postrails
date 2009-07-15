@@ -6,8 +6,8 @@ class Database < ActiveRecord::Base
 
   default_scope :order => 'datname'
 
-  def self.find_by_name(db_name)
-    find_by_datname(db_name)
+  def self.find_by_name(name)
+    find_by_datname(name)
   end
 
   def name
@@ -38,7 +38,7 @@ class Database < ActiveRecord::Base
 
           def self.db_config
             config = ActiveRecord::Base.connection.instance_eval { @config }
-            config.merge('database' => '#{name}', :pool => 1)
+            config.merge(:database => '#{name}', :pool => 1)
           end
 
           establish_connection(db_config)

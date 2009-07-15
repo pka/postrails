@@ -2,6 +2,8 @@ class Table < ActiveRecord::Base
   set_table_name "pg_class"
   set_primary_key 'oid'
 
+  belongs_to :db_schema, :foreign_key => 'relnamespace', :readonly => true
+
   attr_accessor :schema
   attr_accessor :table_name
 
