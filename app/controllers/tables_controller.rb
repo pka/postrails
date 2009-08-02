@@ -7,11 +7,9 @@ class TablesController < ApplicationController
   protected
 
   def refresh_scaffold
-    session[:database] = params[:database] if params[:database]
-    session[:table] = params[:table] if params[:table]
     unless @table
-      @database = Database.find_by_name(session[:database])
-      @table = session[:table]
+      @database = Database.find_by_name(params[:database])
+      @table = params[:table]
       logger.debug "refresh_scaffold to #{@table}"
       table_class = Table.new.connect_table(@database, @table)
       self.class.instance_eval <<EOS

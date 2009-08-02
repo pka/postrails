@@ -1,6 +1,6 @@
 class DbSchema < ActiveRecord::Base
   set_table_name "pg_namespace"
-  set_primary_key "oid"
+  set_primary_key "nspname" #real column needed by active scaffold
 
   has_many :tables, :foreign_key => 'relnamespace', :primary_key => 'oid', :readonly => true
 
