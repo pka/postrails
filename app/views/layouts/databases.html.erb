@@ -45,7 +45,7 @@
         :url => {:controller => 'databases', :action => 'schema_select'},
         :with => "'database_name=' + encodeURIComponent(value)" %>
       <div id="schema_select">
-        <% render :partial => '/databases/schema_select' %>
+        <%= render :partial => '/databases/schema_select' %>
       </div>
     </div>
 

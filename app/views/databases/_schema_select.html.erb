@@ -6,6 +6,6 @@
     :url => {:controller => 'databases', :action => 'refresh_tables'},
     :with => "'database_name=#{@database.name}&schema_name=' + encodeURIComponent(value)" %>
   <div id="tables">
-    <% render :partial => '/databases/tables_list' %>
+    <%= render :partial => '/databases/tables_list' %>
   </div>
 <% end -%>
