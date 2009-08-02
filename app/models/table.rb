@@ -1,8 +1,8 @@
 class Table < ActiveRecord::Base
   set_table_name "pg_class"
-  set_primary_key 'oid'
+  set_primary_key 'relname' #active scaffold doesn't support primary_key 'oid'
 
-  belongs_to :db_schema, :foreign_key => 'relnamespace', :readonly => true
+  #belongs_to :db_schema, :foreign_key => 'relnamespace', :readonly => true (needs :primary_key => 'oid')
 
   attr_accessor :schema
   attr_accessor :table_name

@@ -1,9 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :applications, :active_scaffold => true
   map.resources :databases, :collection => { :refresh_tables => :post }, :active_scaffold => true do |databases|
-    databases.resources :schemas, :active_scaffold => true
+    databases.resources :schemas, :active_scaffold => true do |schemas|
+      schemas.resources :tables, :active_scaffold => true
+    end
   end
-  map.resources :tables, :path_prefix => '/databases/:database/:table', :member => { :refresh_tables => :post }, :active_scaffold => true
+  map.resources :rows,:path_prefix => '/table/:database_name/:schema_name/:table_name',
+    :active_scaffold => true
   map.resources :users, :active_scaffold => true
 
   # The priority is based upon order of creation: first created -> highest priority.

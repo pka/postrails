@@ -1,7 +1,7 @@
 <% if @tables -%>
   <ul>
     <% for table in @tables -%>
-      <li><%= link_to table, tables_path(@database.name, table) %>
+      <li><%= link_to table, rows_path(params[:database_name], params[:schema_name], table) %>
     <% end -%>
   </ul>
 <% end -%>

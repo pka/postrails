@@ -40,7 +40,7 @@
     <div id="left">
       <%= select("database", "name",
         Database.all.collect(&:name),
-        { :include_blank => "-- Database --" }) %>
+        { :selection => params[:database_name], :include_blank => "-- Database --" }) %>
       <%= observe_field 'database_name', :update => 'schema_select',
         :url => {:controller => 'databases', :action => 'schema_select'},
         :with => "'database_name=' + encodeURIComponent(value)" %>
