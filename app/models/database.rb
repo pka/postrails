@@ -10,22 +10,37 @@ class Database < ActiveRecord::Base
     find_by_datname(name)
   end
 
+  def find_schema_by_name(name)
+    db_schema = schema_class.find_by_nspname(name)
+    unless db_schema.respond_to?(:tables)
+      #Hackish: has_many :tables relation has to be defined after schema_class instanciation, because
+      # tables_class requires the schema name
+      tables_class = Table.new(:database => self, :schema => name,
+        :table_name => 'pg_class')
+      DbSchema.module_eval <<EOS
+         class #{schema_class.name} < #{ar_class.name}
+           has_many :tables, :class_name => '#{tables_class.ar_class.name}', :finder_sql => %q<#{DbSchema::TABLES_SQL}>
+         end
+EOS
+    end
+    db_schema
+  end
+
   def name
     datname
   end
 
   def schemas
+    schema_class.all
+  end
+
+  def schema_class
     schema = DbSchema.new(:database => self)
-    schema.ar_class.all
+    schema.ar_class
   end
 
   def db_connection
     ar_class.connection
-  end
-
-  #Return table names
-  def tables
-    db_connection.tables.sort
   end
 
   #Each database record has it's own AR class with a connection

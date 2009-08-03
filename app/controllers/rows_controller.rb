@@ -11,8 +11,8 @@ class RowsController < ApplicationController
     @database = Database.find_by_name(params[:database_name])
     if @database
       params[:schema_name] ||= 'public'
-      @db_schema = DbSchema.find_by_name(params[:schema_name])
-      @tables = @database.tables #FIXME: @db_schema.tables
+      @db_schema = @database.find_schema_by_name(params[:schema_name])
+      @tables = @db_schema.tables
     end
   end
 
@@ -21,7 +21,8 @@ class RowsController < ApplicationController
       #@database = Database.find_by_name(params[:database_name])
       @table = params[:table_name]
       logger.debug "refresh_scaffold to #{@table}"
-      table_class = Table.new.connect_table(@database, @table)
+      table_class = Table.new(:database => @database,
+        :schema => params[:schema_name], :table_name => @table).ar_class
       self.class.instance_eval <<EOS
         active_scaffold('#{table_class.name}') do |config|
           config.label = '#{@table}'

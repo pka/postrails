@@ -7,12 +7,10 @@ class DatabasesController < ApplicationController
 
   def schema_select
     @database = Database.find_by_name(params[:database_name])
+    params[:schema_name] ||= 'public'
+    @db_schema = @database.find_schema_by_name(params[:schema_name])
+    @tables = @db_schema.tables
     render :partial => 'schema_select'
   end
 
-  def refresh_tables
-    @database = Database.find_by_name(params[:database_name])
-    @tables = @database.tables
-    render :partial => 'tables_list'
-  end
 end
