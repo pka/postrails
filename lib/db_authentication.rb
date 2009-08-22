@@ -5,7 +5,7 @@ module DbAuthentication
   end
 
   def authenticate
-    authenticate_or_request_with_http_basic do |username, password|
+    authenticate_or_request_with_http_basic('Database login') do |username, password|
       config = Dbconnect.connection.instance_eval { @config }
       if username != config[:user] || !Dbconnect.connected?
         logger.debug "Connect as user: #{username}"
