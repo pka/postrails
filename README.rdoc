@@ -7,8 +7,8 @@ PostRails is a PostgreSQL database browser and application server.
 
 * Setup config/database.yml
 
-  RAILS_ENV=production rake db:create
-  RAILS_ENV=production rake db:migrate
+ RAILS_ENV=production rake db:create
+ RAILS_ENV=production rake db:migrate
 
 
 ==License
