@@ -1,6 +1,6 @@
 =PostRails
 
-PostRails is database browser and application server for PostgreSQL.
+PostRails is a PostgreSQL database browser and application server.
 
 
 ==Installation
