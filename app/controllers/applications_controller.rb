@@ -1,4 +1,6 @@
 class ApplicationsController < ApplicationController
+  before_filter :db_schema_tables_select
+
   active_scaffold do |config|
     config.list.columns << :status
     config.create.columns << :tables
@@ -18,4 +20,12 @@ class ApplicationsController < ApplicationController
     status, output = @application.stop
     render :text => 'Stopping application'
   end
+
+protected
+
+  def before_create_save(record)
+    record.database_name = @database.name
+    record.schema_name = @db_schema.name
+  end
+
 end

@@ -8,7 +8,7 @@ module ApplicationsHelper
   end
 
  def tables_form_column(record, input_name)
-   select(:record, :tables, record.connection.tables, {}, { :size => 4, :multiple => 'multiple' })
+   select(:record, :tables, @tables.collect(&:relname), {}, { :size => 4, :multiple => 'multiple' }) if @tables
  end
 
 end

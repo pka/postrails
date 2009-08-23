@@ -5,8 +5,12 @@ run "rm README"
 
 parent_root = ENV['PARENT_ROOT'] || "#{RAILS_ROOT}/../.."
 
-run "cp #{parent_root}/config/database.yml config/database.yml"
-run "cp -r #{parent_root}/vendor/plugins/crud_scaffold_generator vendor/plugins"
+run "cp #{parent_root}/lib/db_authentication.rb lib/"
+run "cp -r #{parent_root}/vendor/plugins/crud_scaffold_generator vendor/plugins/"
+
+db_config = "#{ENV['DATABASE']}"
+db_config << "\\n  schema_search_path: #{ENV['SCHEMA']}" if ENV['SCHEMA'] != 'public'
+run "sed -e 's/database: .\\+/database: #{db_config}/' #{parent_root}/config/database.yml >config/database.yml"
 
 tables = ENV['TABLES'].split(',')
 tables.each do |table|

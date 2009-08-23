@@ -25,6 +25,13 @@
     </div>
 
     <div id="left">
+      <%= select("database", "name",
+        Database.all.collect(&:name),
+        { :include_blank => "-- Database --" },
+        :onchange => "window.location.href = '/applications?database_name=' + encodeURIComponent(value)") %>
+      <div id="schema_select">
+        <%= render :partial => '/applications/schema_select' %>
+      </div>
     </div>
 
     <div id="content">

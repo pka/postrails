@@ -7,6 +7,8 @@ class Application < ActiveRecord::Base
   before_create :create_railsapp
   before_destroy :destroy_railsapp
 
+  attr_accessor :database_name
+  attr_accessor :schema_name
   attr_accessor :tables
 
   def railsapp_path
@@ -20,7 +22,7 @@ class Application < ActiveRecord::Base
   def create_railsapp
     destroy_railsapp
     table_list = (tables || []).join(',')
-    Shell.run("TABLES=#{table_list} PARENT_ROOT=#{RAILS_ROOT} rails --template=#{APP_TEMPLATE} #{railsapp_path}")
+    Shell.run("DATABASE=#{database_name} SCHEMA=#{schema_name} TABLES=#{table_list} PARENT_ROOT=#{RAILS_ROOT} rails --template=#{APP_TEMPLATE} #{railsapp_path}")
   end
 
   def destroy_railsapp

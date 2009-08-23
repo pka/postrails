@@ -1,5 +1,8 @@
 class <%= controller_class_name %>Controller < ApplicationController
 
+  include DbAuthentication
+  before_filter :authenticate
+
   layout '<%= controller_file_name %>'
 
 <% unless suffix -%>

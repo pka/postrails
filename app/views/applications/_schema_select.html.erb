@@ -1,0 +1,5 @@
+<% if @database -%>
+  <%= select("db_schema", "name",
+    @database.schemas.collect(&:nspname), {},
+    :onchange => "window.location.href = '/applications?database_name=#{@database.name}&schema_name=' + encodeURIComponent(value)") %>
+<% end -%>
