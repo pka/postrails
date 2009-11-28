@@ -2,6 +2,9 @@
 
 PostRails is a PostgreSQL database browser and application server.
 
+==Screencast
+
+Watch the {Screencast}[http://blip.tv/file/2906014].
 
 ==Installation
 
@@ -9,7 +12,6 @@ PostRails is a PostgreSQL database browser and application server.
 
  RAILS_ENV=production rake db:create
  RAILS_ENV=production rake db:migrate
-
 
 ==License
 
